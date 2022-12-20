@@ -1,0 +1,85 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<main class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">DELIVERY OPTIONS</h3>
+
+  <!-- dilivery cards  -->
+  <section hx-boost="true">
+    <!-- <div class="row mx-0 card-shadow py-3 rounded-0 mb-4">
+      <div class="col-2">Icon</div>
+      <div class="col">
+        <h6>Delivery</h6>
+        <p>Courier delivery to your door</p>
+      </div>
+      <div class="col-2">arrow</div>
+    </div> -->
+
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      <div class="row mx-0 card-shadow py-3 rounded-0 mb-5">
+        <div class="col-3">
+          <img
+            class="sale-hero-img"
+            src="{% static 'images/EmmaApril.png' %}"
+            alt=""
+            style="height: 70px; width: 70px; object-fit: cover"
+          />
+        </div>
+        <div class="col">
+          <h6>Pick Up</h6>
+          <p>Pick up your purchase in-store.</p>
+        </div>
+        <div class="col-2 d-flex align-items-center">
+          <button
+            class="border-0"
+            style="background-color: transparent"
+            type="submit"
+            name="SubmitPickup"
+          >
+            <i
+              class="bi bi-arrow-right-circle-fill"
+              style="font-size: 24px"
+            ></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row mx-0 card-shadow py-3 rounded-0 mb-5">
+        <div class="col-3">
+          <img
+            class="sale-hero-img"
+            src="{% static 'images/paxi.png' %}"
+            alt=""
+            style="height: 70px; width: 70px; object-fit: cover"
+          />
+        </div>
+        <div class="col">
+          <h6>Pep Paxi Parcel</h6>
+          <p>Collect your items from any pep store near you.</p>
+        </div>
+        <div class="col-2 d-flex align-items-center">
+          <button
+            class="border-0"
+            style="background-color: transparent"
+            type="submit"
+            name="PaxiSubmit"
+          >
+            <i
+              class="bi bi-arrow-right-circle-fill"
+              style="font-size: 24px"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <div style="height: 200px; width: 100%"></div>
+</main>
+{% endblock %}

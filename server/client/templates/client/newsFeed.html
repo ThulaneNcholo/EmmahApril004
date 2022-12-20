@@ -1,0 +1,51 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">STAY UP TO DATE.</h3>
+</section>
+
+<section class="container mt-5">
+  {% for blog in BlogData %}
+  <div class="row mb-4 mx-0">
+    <div class="col-3">
+      <img
+        src="{{blog.Blog_Image.url}}"
+        class="rounded float-start"
+        alt="..."
+        style="height: 300px; width: 100%; object-fit: cover"
+      />
+    </div>
+    <div class="col">
+      <h6 class="pop-headings">{{blog.Title}}</h6>
+      <p>{{blog.Event_Startdate}}</p>
+      <p>{{Sub_heading}}</p>
+      <p>{{blog.Description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- Footer section  -->
+<section>{% include 'partials/footer.html'%}</section>
+
+<script>
+  
+</script>
+
+{% endblock %}

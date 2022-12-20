@@ -1,0 +1,60 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<style>
+  .productimage {
+    object-fit: cover !important;
+    height: 500px !important;
+  }
+</style>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mt-5">COLLECTION</h3>
+  <div class="row">
+    {% for data in collection %}
+    <div class="col-sm-12 col-md-4 col-xl-3 mt-3">
+      <div hx-boost="true">
+        <a
+          class="text-black"
+          href="{% url 'item-details'  data.id %}"
+          style="text-decoration: none"
+        >
+          <img
+            class="sale-image productimage"
+            src="{{data.main_Image.url}}"
+            alt=""
+          />
+          <p class="fw-bold mt-2">{{data.Name}}</p>
+
+          <!-- sale section start  -->
+          {% if data.sale == "Yes" %}
+          <p class="mb-1 text-danger">
+            <del>R{{data.Price}}</del>
+          </p>
+          <p class="heading_style" style="font-size: 18px; letter-spacing: 1px">
+            R{{data.Sale_Price}}
+          </p>
+          <p><span class="fw-bold">Ends</span> {{data.End_date}}</p>
+          {% else %}
+          <p class="heading_style" style="font-size: 18px; letter-spacing: 1px">
+            R{{data.Price}}
+          </p>
+          {% endif %}
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- section diver  -->
+  <div class="content_divider"></div>
+
+  <!-- Footer section  -->
+  <section>{% include 'partials/footer.html'%}</section>
+
+  {% endblock %}
+</section>

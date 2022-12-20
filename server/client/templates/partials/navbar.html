@@ -1,0 +1,149 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light text-white py-5"
+  style="
+    background-color: black;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  "
+>
+  <div class="container">
+    {% if user.is_authenticated %}
+    <a href="{% url 'cart' %}" hx-boost="true">
+      <button class="navbar-toggler border-0" type="button">
+        <i
+          class="bi bi-bag-check-fill text-white position-relative"
+          style="font-size: 24px"
+        >
+          <span
+            class="position-absolute top-0 start-100 translate-end"
+            style="font-size: 15px"
+          >
+            {{cartCount}}+
+          </span></i
+        >
+      </button>
+    </a>
+    {% endif %}
+    <a
+      class="navbar-brand text-white navbar-heading"
+      href="{% url 'index'%}"
+      hx-boost="true"
+      >Emma April.</a
+    >
+    <button
+      class="navbar-toggler text-white"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      style="border-color: white"
+    >
+      <i class="bi bi-list text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a
+            class="nav-link text-white fw-bold"
+            href="{% url 'my-collection'%}"
+            hx-boost="true"
+            >MY COLLECTION</a
+          >
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a
+            class="nav-link active text-white"
+            aria-current="page"
+            href="{% url 'index'%}"
+            hx-boost="true"
+            >HOME</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'on-sale'%}"
+            hx-boost="true"
+            >SALE</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'new-arrival'%}"
+            hx-boost="true"
+            >ARRIVALS</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'all-collections'%}"
+            hx-boost="true"
+            >COLLECTION</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'news-feed'%}"
+            hx-boost="true"
+            >NEWS-FEED</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'about-us'%}"
+            hx-boost="true"
+            >ABOUT US</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="{% url 'contact'%}"
+            hx-boost="true"
+            >CONTACT US</a
+          >
+        </li>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="{% url 'logout'%}"
+            >LOG OUT</a
+          >
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-white fw-bold" href="{% url 'login'%}"
+            >LOG IN</a
+          >
+        </li>
+        {% endif %}
+      </ul>
+      <div class="d-flex">
+        {% if user.is_authenticated %}
+        <a href="{% url 'cart' %}" hx-boost="true">
+          <i
+            class="bi bi-bag-check-fill text-white position-relative"
+            style="font-size: 24px"
+          >
+            <span
+              class="position-absolute top-0 start-100 translate-end"
+              style="font-size: 15px"
+            >
+              {{cartCount}}+
+            </span></i
+          >
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+

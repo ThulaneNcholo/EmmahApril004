@@ -1,0 +1,9 @@
+.heading_style {
+  font-family: "Tenor Sans", sans-serif;
+}
+
+.sale-image {
+  height: 450px;
+  width: 100%;
+  object-fit: cover;
+}

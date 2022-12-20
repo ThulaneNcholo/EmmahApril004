@@ -1,0 +1,558 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+
+<style>
+  @media screen and (max-width: 600px) {
+    .hero-text {
+      font-family: "Raleway", sans-serif;
+      font-size: 80px;
+      color: white;
+      letter-spacing: 5px;
+      font-weight: 700;
+    }
+  }
+</style>
+
+<div class="hero-image">
+  {% include 'partials/transperate_navbar.html'%}
+  <section class="container my-5">
+    {% for message in messages %}
+    <div class="alert alert-primary" role="alert">{{message}}</div>
+    {% endfor %}
+  </section>
+  <section class="hero-content">
+    <center>
+      <h1 class="hero-text mb-5">Emmah April</h1>
+      <h3 class="page-fonts">FASHION HOUSE</h3>
+      <h5 class="page-fonts">Since 2000</h5>
+      <div hx-boost="true">
+        <a href="{% url 'all-collections'%}" style="text-decoration: none">
+          <button
+            type="button"
+            class="btn btn-light mt-5 py-3 rounded-0"
+            style="width: 50%"
+          >
+            Collection
+          </button>
+        </a>
+      </div>
+    </center>
+  </section>
+</div>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- Sale Section Start  -->
+<section class="container sale-section">
+  <div class="row mx-0">
+    <div class="col d-flex align-items-center">
+      <h3>ON SALE COLLECTION</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <div hx-boost="true">
+        <a
+          href="{% url 'on-sale'%}"
+          style="text-decoration: none; color: black"
+        >
+          <i class="bi bi-arrow-right sale-icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="saleImages mt-5" hx-boost="true">
+    <div class="row pb-4 mx-0">
+      {% for product in productOne_sale %}
+      <div class="col">
+        <a
+          href="{% url 'item-details' product.id %}"
+          style="text-decoration: none; color: black"
+        >
+          <img class="sale-hero-img" src="{{product.main_Image.url}}" alt="" />
+          <h6 class="mt-3">{{product.Name}}</h6>
+          <p class="text-danger"><del>R{{product.Price}}</del></p>
+          <p>R{{product.Sale_Price}}</p>
+        </a>
+      </div>
+      {% endfor %}
+      <div class="col">
+        {% for product in productTwo_sale%}
+        <a
+          href="{% url 'item-details' product.id %}"
+          style="text-decoration: none; color: black"
+        >
+          <div class="row mb-5 mx-0">
+            <div class="col">
+              <img
+                class="hero-side-img"
+                src="{{product.main_Image.url}}"
+                alt=""
+              />
+            </div>
+            <div class="col">
+              <h6>{{product.Name}}</h6>
+              <p class="text-danger"><del>R{{product.Price}}</del></p>
+              <p>R{{product.Sale_Price}}</p>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+        <!-- divider  -->
+        {% for product in productthird_sale%}
+        <a
+          href="{% url 'item-details' product.id %}"
+          style="text-decoration: none; color: black"
+        >
+          <div class="row mx-0">
+            <div class="col">
+              <h6>{{product.Name}}</h6>
+              <p class="text-danger"><del>R{{product.Price}}</del></p>
+              <p>R{{product.Sale_Price}}</p>
+            </div>
+            <div class="col">
+              <img
+                class="hero-side-img"
+                src="{{product.main_Image.url}}"
+                alt=""
+              />
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div hx-boost="true">
+      <a href="{% url 'on-sale'%}" style="text-decoration: none">
+        <button
+          class="btn text-white py-3 rounded-0 card-shadow"
+          style="width: 100%; background-color: black"
+        >
+          Browse Sale Collection
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- New Arrivals section   -->
+<section class="container mt-5" hx-boost="true">
+  <div class="row pb-5 mx-0">
+    <div class="col d-flex align-items-center">
+      <h3 class="heading_style">NEW ARRIVALS</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <a href="{% url 'new-arrival'%}">
+        <i class="bi bi-arrow-right sale-icon"></i>
+      </a>
+    </div>
+  </div>
+  {% for product in arrivalOne %}
+  <a
+    href="{% url 'item-details' product.id %}"
+    style="text-decoration: none; color: black"
+  >
+    <div class="row mb-5">
+      <div class="col">
+        <img
+          class="rounded-0"
+          style="height: 300px; object-fit: cover; width: 100%"
+          src="{{product.main_Image.url}}"
+          alt=""
+        />
+      </div>
+      <div class="col d-flex align-items-center">
+        <div>
+          <h3>{{product.Name}}</h3>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0" style="font-size: 14px">{{product.Description}}</p>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0 fw-bold" style="font-size: 14px">R{{product.Price}}</p>
+          <button
+            type="button"
+            class="btn btn-outline-dark my-3 border-2 rounded-0 card-shadow"
+          >
+            BUY NOW
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  {% endfor %}
+  <!-- divider two  -->
+  {% for product in arrivalTwo %}
+  <a
+    href="{% url 'item-details' product.id %}"
+    style="text-decoration: none; color: black"
+  >
+    <div class="row mb-5">
+      <div class="col d-flex align-items-center">
+        <div>
+          <h3>{{product.Name}}</h3>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0" style="font-size: 14px">{{product.Description}}</p>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0 fw-bold" style="font-size: 14px">R{{product.Price}}</p>
+          <button
+            type="button"
+            class="btn btn-outline-dark my-3 border-2 rounded-0 card-shadow"
+          >
+            BUY NOW
+          </button>
+        </div>
+      </div>
+      <div class="col">
+        <img
+          class="rounded-0"
+          style="height: 300px; object-fit: cover; width: 100%"
+          src="{{product.main_Image.url}}"
+          alt=""
+        />
+      </div>
+    </div>
+  </a>
+
+  {% endfor %}
+  <!-- divider 3  -->
+  {% for product in arrivalThree %}
+  <a
+    href="{% url 'item-details' product.id %}"
+    style="text-decoration: none; color: black"
+  >
+    <div class="row mb-5">
+      <div class="col">
+        <img
+          class="rounded-0"
+          style="height: 300px; object-fit: cover; width: 100%"
+          src="{{product.main_Image.url}}"
+          alt=""
+        />
+      </div>
+      <div class="col d-flex align-items-center">
+        <div>
+          <h3>{{product.Name}}</h3>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0" style="font-size: 14px">{{product.Description}}</p>
+          <div
+            class="my-3"
+            style="height: 5px; width: 100%; background-color: black"
+          ></div>
+          <p class="mb-0 fw-bold" style="font-size: 14px">R{{product.Price}}</p>
+          <button
+            type="button"
+            class="btn btn-outline-dark my-3 border-2 rounded-0 card-shadow"
+          >
+            BUY NOW
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  {% endfor %}
+
+  <center>
+    <a
+      class="text-white"
+      href="{% url 'new-arrival'%}"
+      style="text-decoration: none"
+    >
+      <button
+        class="btn text-white py-3 rounded-0 card-shadow mt-5"
+        style="width: 100%; background-color: black"
+      >
+        Browse New Arrivals
+      </button>
+    </a>
+  </center>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<section class="container">
+  <div class="row pb-5 mx-0">
+    <div class="col d-flex align-items-center">
+      <h3 class="heading_style">OUR FULL COLLECTION</h3>
+    </div>
+    <div class="col d-flex justify-content-end" hx-boost="true">
+      <a href="{% url 'collection' %}" style="color: black">
+        <i class="bi bi-arrow-right sale-icon"></i>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    {% for category in Categories %}
+    <hr />
+    <div class="row mx-0">
+      <div class="col arrival-container category-text">
+        <div>
+          <h6>{{category.Name}}</h6>
+        </div>
+      </div>
+      <div class="col">
+        <img
+          src="{{category.Category_Image.url}}"
+          alt=""
+          style="height: 250px; width: 100%; object-fit: cover"
+        />
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<section class="subcribe">
+  <div class="subscribe-content text-white">
+    <center>
+      <h1 class="fw-bold heading_style">STAY UP TO DATE</h1>
+      <h1 class="fw-bold heading_style">WITH</h1>
+      <h1 class="fw-bold heading_style">EMMAH APRIL</h1>
+      <button
+        class="btn text-black py-3 px-5 mt-5 rounded-0"
+        style="background-color: white; letter-spacing: 1px"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        SUBCRIBE TO NEWSLETTER
+      </button>
+    </center>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">
+              NEWSLETTER
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="POST" autocomplete="off">
+              {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control text-black border-black rounded-0"
+                  style="border-color: black"
+                  id="floatingInput"
+                  placeholder="First Name"
+                  name="fistname"
+                  required
+                />
+                <label class="text-black" for="floatingInput">First Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control text-black border-black rounded-0"
+                  style="border-color: black"
+                  id="floatingInput"
+                  placeholder="Last Name"
+                  name="lastName"
+                  required
+                />
+                <label class="text-black" for="floatingInput">Last Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control text-black border-black rounded-0"
+                  style="border-color: black"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                  name="emailAddress"
+                  required
+                />
+                <label class="text-black" for="floatingInput"
+                  >Email address</label
+                >
+              </div>
+              <button
+                type="submit"
+                name="subcribe"
+                class="btn text-white card-shadow py-3 my-4 rounded-0"
+                style="background-color: black; width: 100%"
+              >
+                SUBCRIBE
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<section class="PopUp-store container">
+  <div class="row pb-5 mx-0">
+    <div class="col d-flex align-items-center">
+      <h3 class="heading_style">POP-UP STORES / NEWS</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <a href="{% url 'news-feed' %}" hx-boost="True">
+        <i class="bi bi-arrow-right sale-icon"></i>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    {% for blog in BlogData %}
+    <div class="row mb-4 mx-0">
+      <div class="col-3">
+        <img
+          src="{{blog.Blog_Image.url}}"
+          class="rounded float-start"
+          alt="..."
+          style="height: 300px; width: 100%; object-fit: cover"
+        />
+      </div>
+      <div class="col">
+        <h6 class="pop-headings">{{blog.Title}}</h6>
+        <p>{{blog.Event_Startdate}}</p>
+        <p>{{Sub_heading}}</p>
+        <p>{{blog.Description}}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<section class="container about-us">
+  <div class="row pb-5">
+    <div class="col d-flex align-items-center">
+      <h3 class="heading_style">ABOUT US</h3>
+    </div>
+    <div class="col d-flex justify-content-end">
+      <a href="{% url 'about-us' %}" hx-boost="True">
+        <i class="bi bi-arrow-right sale-icon"></i>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div class="row mx-0">
+      <div class="col-sm-12 col-md-6 d-flex align-items-center">
+        <img
+          src="{% static 'images/EmmaApril.png'%}"
+          class="img-fluid"
+          alt="..."
+        />
+        <!-- <img src="{% static 'images/EmmaApril.png'%}" alt="" /> -->
+      </div>
+      <div class="col-sm-12 col-md-6 mt-5">
+        <h3 class="about-us-h3">Emmah April</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex magnam
+          perferendis earum recusandae ipsa at sed eligendi. Debitis in ratione
+          asperiores neque enim facere, reiciendis at eligendi dolorum veniam
+          minima tempore, quod maxime dolore nihil repudiandae. Ullam
+          praesentium pariatur saepe eaque ducimus aspernatur nobis, nulla rem
+          cumque laborum incidunt amet.
+        </p>
+        <h3 class="about-us-h3 mt-5">Contact Us</h3>
+        <div class="row mt-3">
+          <div class="col-sm-12 col-md-6">
+            <p class="fw-bold">Emmah Ncholo</p>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <p>083 478 7809</p>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-sm-12 col-md-6">
+            <p class="fw-bold">Dirontsho Ncholo</p>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <p>069 311 9311</p>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-sm-12 col-md-6">
+            <p class="fw-bold">Lerato Chappie</p>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <p>073 762 3318</p>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-sm-12 col-md-6">
+            <p class="fw-bold">Email</p>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <p>emmahaprilza@gmail.com</p>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-sm-12 col-md-6">
+            <h3 class="about-us-h3">Location</h3>
+            <p>12 Totius Street</p>
+            <p>Crystal Park</p>
+            <p>Benoni</p>
+          </div>
+          <div class="col">
+            <h3 class="about-us-h3">SOCIAL MEDIA</h3>
+            <p>
+              <span style="padding-right: 5px"
+                ><i class="bi bi-instagram"></i
+              ></span>
+              Emmah April
+            </p>
+            <p>
+              <span style="padding-right: 5px"
+                ><i class="bi bi-facebook"></i
+              ></span>
+              Emmah April
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- Footer section  -->
+<section>{% include 'partials/footer.html'%}</section>
+{% endblock %}

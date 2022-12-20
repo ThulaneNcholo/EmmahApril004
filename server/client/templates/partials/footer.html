@@ -1,0 +1,30 @@
+{% load static %}
+
+<style>
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+<div class="d-flex justify-content-between container mb-2" hx-boost="true">
+  <a href="{% url 'index'%}"> HOME </a>
+  <a href="{% url 'on-sale'%}"> SALE</a>
+  <a href="{% url 'new-arrival'%}"> ARRIVALS</a>
+  <a href="{% url 'all-collections'%}"> COLLECTION</a>
+</div>
+
+<!-- GNT TECHNOLOGY  -->
+<section class="container">
+  <hr />
+  <center>
+    <p class="pt-5">
+      <span><i class="bi bi-c-circle"></i></span> <span id="year"></span> Emmah
+      April.
+    </p>
+    <img style="height: 150px" src="{% static 'images/GTN_LOGO.png'%}" alt="" />
+  </center>
+</section>
+
+<script>
+  document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>

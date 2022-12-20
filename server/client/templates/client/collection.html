@@ -1,0 +1,42 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- div -->
+{%include 'partials/navbar.html'%}
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">OUR COLLECTION</h3>
+</section>
+
+<div>
+  <div class="row mx-0">
+    {% for collection in Categories%}
+    <div class="col-sm-12 col-md-6 px-0">
+      <div
+        class="Collection-image-css collection-component text-white bg-secondary"
+        style=" background-size: cover;background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url({{collection.Category_Image.url}});"
+      >
+        <center>
+          <div>
+            <h5 class="heading_style">{{collection.Name}}</h5>
+            <button
+              class="btn btn-light mt-4 rounded-0 card-shadow"
+              style="width: 50%"
+            >
+              SHOP
+            </button>
+          </div>
+        </center>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- Footer section  -->
+<section>{% include 'partials/footer.html'%}</section>
+{% endblock %}

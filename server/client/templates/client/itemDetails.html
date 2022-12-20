@@ -1,0 +1,331 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+<style>
+  .offcanvas-bottom {
+    height: 30vh !important;
+  }
+
+  .productimage {
+    object-fit: cover !important;
+    height: 500px !important;
+  }
+
+  .base_align {
+    align-items: baseline;
+  }
+</style>
+{% include 'partials/navbar.html'%}
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+{% if item.id == inCartData.ProductKey.id %}
+<section class="container mt-5">
+  <div class="alert alert-primary" role="alert">ITEM IN CART</div>
+</section>
+{% endif %}
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-3">{{item.Name}}</h3>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <img class="item-img productimage" src="{{item.main_Image.url}}" alt="" />
+    </div>
+    <div class="col-sm-12 com-md-8 mt-5">
+      <div class="row">
+        <div class="col">
+          <h3 class="mb-3">{{item.Name}}</h3>
+          <p>{{item.Description}}</p>
+        </div>
+        <div class="col-2 d-flex justify-content-end">
+          <i class="bi bi-heart favourite-icon"></i>
+        </div>
+      </div>
+      {% if item.sale == "Yes" %}
+      <p class="text-danger"><del>R{{item.Price}}</del></p>
+      <p class="price-style heading_style">R{{item.Sale_Price}}</p>
+      {% else %}
+      <p class="price-style heading_style">R{{item.Price}}</p>
+      {% endif %}
+      <!-- More Pictures  -->
+      <div class="row">
+        {% if item.Image_One %}
+        <div class="col-4">
+          <img class="more-pictures" src="{{item.Image_One.url}}" alt="" />
+        </div>
+        {% endif %} {% if item.Image_Two %}
+        <div class="col-4">
+          <img class="more-pictures" src="{{item.Image_Two.url}}" alt="" />
+        </div>
+        {% endif %} {% if item.Image_Three %}
+        <div class="col-4">
+          <img class="more-pictures" src="{{item.Image_Three.url}}" alt="" />
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+<form action="" method="POST">
+  {% csrf_token %}
+  <section class="container">
+    <h3 class="heading_style mb-5">ADD TO CART</h3>
+    <h6 style="font-size: 18px">Size</h6>
+    <div class="row">
+      {% for data in ItemSizes %}
+      <div class="col-4 mb-3">
+        <div class="form-check px-0">
+          <input
+            type="radio"
+            class="btn-check"
+            name="sizeOptions"
+            id="{{data.id}}"
+            autocomplete="off"
+            value="{{data.Size}}"
+            required
+          />
+          <label
+            class="btn btn-outline-dark border border-2 p-3"
+            style="width: 100%"
+            for="{{data.id}}"
+            >{{data.Size}}</label
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <h6 class="mt-5 mb-3" style="font-size: 18px">Quantity</h6>
+    <div class="row mx-0">
+      <div class="col">
+        <!-- Minus Quantity  -->
+        <center>
+          <button
+            class="border-0"
+            style="background-color: transparent"
+            onclick="subtrackQuantity(event)"
+          >
+            <i class="bi bi-dash-square-fill" style="font-size: 30px"></i>
+          </button>
+        </center>
+      </div>
+      <div class="col">
+        <center>
+          <!--  Quantity  -->
+          <h6 class="bg-light card-shadow px-3 py-2" id="Quantity">1</h6>
+          <input
+            type="text"
+            id="QauntityValue"
+            hidden="True"
+            value="1"
+            name="QuantityInput"
+          />
+        </center>
+      </div>
+      <div class="col">
+        <center>
+          <!-- Add Quantity  -->
+          <button
+            class="border-0"
+            style="background-color: transparent"
+            onclick="addQuantity(event)"
+          >
+            <i class="bi bi-plus-square-fill" style="font-size: 30px"></i>
+          </button>
+        </center>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="fixed-bottom bg-white container pt-3">
+      <div class="row">
+        <div class="col">
+          <h3 class="mb-3 heading_style">{{item.Name}}</h3>
+        </div>
+        <div class="col d-flex justify-content-end">
+          {% if item.sale == "Yes" %}
+          <h3>
+            R<span id="ItemPrice" style="letter-spacing: 1px"
+              >{{item.Sale_Price}}</span
+            >
+          </h3>
+          <input
+            type="text"
+            value="{{item.Sale_Price}}"
+            id="productPrice"
+            name="product_price"
+            hidden="True"
+          />
+          <input
+            type="text"
+            id="TotalPrice"
+            value="{{item.Sale_Price}}"
+            hidden="True"
+            name="UnitTotal"
+          />
+          <input
+            type="text"
+            value="{{item.id}}"
+            hidden="True"
+            name="ProductId"
+          />
+          {% else %}
+          <!-- Normal Product  -->
+          <h3>
+            R<span id="ItemPrice" style="letter-spacing: 1px"
+              >{{item.Price}}</span
+            >
+          </h3>
+          <input
+            type="text"
+            value="{{item.Price}}"
+            id="productPrice"
+            name="product_price"
+            hidden="True"
+          />
+          <input
+            type="text"
+            id="TotalPrice"
+            value="{{item.Price}}"
+            hidden="True"
+            name="UnitTotal"
+          />
+          <input
+            type="text"
+            value="{{item.id}}"
+            hidden="True"
+            name="ProductId"
+          />
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col">
+          {% if user.is_authenticated %}
+          <!-- check if item is in cart  -->
+          {% if item.id == inCartData.ProductKey.id %}
+          <div hx-boost="true">
+            <a href="{% url 'cart' %}">
+              <button
+                name="addCart"
+                class="btn text-white py-3 card-shadow rounded-0 my-2"
+                style="background-color: black; width: 100%"
+              >
+                GO TO CART
+              </button>
+            </a>
+
+            <a href="{% url 'all-collections' %}">
+              <button
+                name="checkout"
+                class="btn btn-secondary py-3 mb-4 rounded-0"
+                style="width: 100%; letter-spacing: 1px"
+              >
+                CONTINUE SHOPPING
+              </button>
+            </a>
+          </div>
+          {% else %}
+          <button
+            type="submit"
+            name="addCart"
+            class="btn text-white py-3 card-shadow rounded-0"
+            style="background-color: black; width: 100%"
+          >
+            ADD TO CART
+          </button>
+          {% endif %}
+          <!-- check if user logged in else statement -->
+          {% else %}
+          <div>
+            <input
+              type="text"
+              value="{{ request.path }}"
+              id="RedictPath"
+              hidden="True"
+            />
+            <a href="{% url 'login' %}" style="text-decoration: none">
+              <div
+                class="btn text-white py-3 card-shadow rounded-0"
+                style="background-color: black; width: 100%"
+                onclick="savePath()"
+              >
+                LOGIN TO ADD TO CART
+              </div>
+            </a>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<!-- section diver  -->
+<div style="height: 300px; width: 100%"></div>
+
+<script>
+  function addQuantity(event) {
+    event.preventDefault();
+    itemQuantity = document.getElementById("Quantity").innerHTML;
+    intValue = parseInt(itemQuantity++);
+    addedValue = intValue++;
+    document.getElementById("Quantity").innerHTML = intValue;
+    document.getElementById("QauntityValue").value = intValue;
+
+    // Total Value Function
+    price = document.getElementById("productPrice").value;
+    FloatPrice = parseFloat(price);
+    addedPrice = FloatPrice * parseInt(itemQuantity);
+    document.getElementById("ItemPrice").innerHTML = addedPrice.toFixed(2);
+    document.getElementById("TotalPrice").value = addedPrice.toFixed(2);
+  }
+
+  function subtrackQuantity(event) {
+    event.preventDefault();
+    itemQuantity = document.getElementById("Quantity").innerHTML;
+    intValue = parseInt(itemQuantity);
+    addedValue = --intValue;
+    document.getElementById("Quantity").innerHTML = intValue;
+    document.getElementById("QauntityValue").value = intValue;
+
+    // Total Value Function
+    price = document.getElementById("ItemPrice").innerHTML;
+    FloatPrice = parseFloat(price);
+    OriginalPrice = document.getElementById("productPrice").value;
+    userPrice = FloatPrice - parseFloat(OriginalPrice);
+    document.getElementById("ItemPrice").innerHTML = userPrice.toFixed(2);
+    document.getElementById("TotalPrice").value = userPrice.toFixed(2);
+  }
+
+  function savePath() {
+    pathValue = document.getElementById("RedictPath").value;
+
+    // save to sessionStorage
+    sessionStorage.setItem("previousPath", pathValue);
+    let userPath = sessionStorage.getItem("previousPath");
+  }
+
+  // clear user session storage
+  // userPath = document.getElementById("RedictPath").value;
+  // let sessionPath = sessionStorage.getItem("previousPath");
+
+  // if (userPath === sessionPath) {
+  //   sessionStorage.clear();
+  //   console.log("cleared path");
+  // }
+</script>
+{% endblock %}

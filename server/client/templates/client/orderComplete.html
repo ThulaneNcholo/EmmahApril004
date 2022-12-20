@@ -1,0 +1,254 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<style>
+  .April_logo {
+    height: 200px;
+    width: 200px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .paxi_links {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+</section>
+
+<!-- hero Component  -->
+<section class="container">
+  <center>
+    <img
+      src="{% static 'images/AprilLogoTrans.svg'%}"
+      class="img-fluid April_logo"
+      alt="Emmah April Fashion"
+    />
+  </center>
+</section>
+
+<!-- Company and Customer Info  -->
+<section class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 mt-4">
+      <h4>For</h4>
+      <p class="mb-1">{{customerOrder.Name}} {{customerOrder.LastName}}</p>
+      <p class="mb-1">{{customerOrder.Contact}}</p>
+      <p class="mb-3">{{customerOrder.Email}}</p>
+      <p class="mb-1">
+        Order Reference <span><i class="bi bi-star-fill text-danger"></i></span>
+      </p>
+      <p class="mb-3 fw-bold">{{customerOrder.customer_ref}}</p>
+      <p class="mb-1 fw-bold">
+        Order valid for 3 days
+        <span><i class="bi bi-star-fill text-danger"></i></span>
+      </p>
+    </div>
+    <div class="col-sm-12 col-md-6 mt-4">
+      <h4>From</h4>
+      <p class="mb-1">Emmah April</p>
+      <p class="mb-1">083 476 7809</p>
+      <p class="mb-1">emmahaprilza@gmail.com</p>
+      <p class="mb-1">102 Totius Road</p>
+      <p class="mb-1">Crystal Park</p>
+      <p class="mb-1">Benoni</p>
+      <p class="mb-1">Gauteng</p>
+    </div>
+  </div>
+</section>
+
+<!-- Delivery Option  -->
+{% if paxiData %}
+<section class="container mt-5">
+  <h4>Paxi Delivery</h4>
+
+  <p class="mb-1">{{paxiData.days}} BUSINESS DAYS</p>
+
+  {% if customerOrder.addressLine1 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine1}}</p>
+  {% endif %} {% if customerOrder.addressLine2 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine2}}</p>
+  {% endif %} {% if customerOrder.addressLine3 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine3}} thulane</p>
+  {% endif %} {% if customerOrder.addressLine4 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine4}}</p>
+  {% endif %} {% if customerOrder.addressLine5 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine5}}</p>
+  {% endif %} {% if customerOrder.addressLine6 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine6}}</p>
+  {% endif %} {% if customerOrder.addressLine7 != 'undefined' %}
+  <p class="mb-1">{{customerOrder.addressLine7}}</p>
+  {% endif %}
+</section>
+
+<section class="my-3 container">
+  <p class="fw-bold">How to Collect a PAXI package?</p>
+  <button
+    type="button"
+    class="btn btn-outline-dark rounded-0 card-shadow mb-5"
+    onclick="showPaxi(event)"
+  >
+    Read More
+  </button>
+
+  <div id="read_more" style="display: none">
+    <p class="fw-bold">1. COLLECTION SMS</p>
+    <p>PAXI will update you on the journey of your package via SMS</p>
+    <p class="fw-bold">2. BRING ID & PIN</p>
+    <p>
+      Bring your proof of identification and OTP pin when collecting your parcel
+    </p>
+    <p class="fw-bold">3. SCAN</p>
+    <p>Your PAXI bag will get scanned out</p>
+    <p class="fw-bold mb-4">4. AND YOU'RE READY TO GO!</p>
+    <hr />
+
+    <a class="paxi_links" href="https://www.paxi.co.za/track" target="_blank">
+      <p>
+        Track Package
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+
+    <a
+      class="paxi_links"
+      href="https://www.paxi.co.za/collect#collectHow"
+      target="_blank"
+    >
+      <p>
+        Paxi Website
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+    <a
+      class="paxi_links"
+      href="https://www.pepstores.com/page/pep-money/paxi/how-to-collect-a-paxi-parcel"
+      target="_blank"
+    >
+      <p>
+        Pep store's Website
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+  </div>
+</section>
+{% endif %}
+
+<!-- Bank Account  -->
+<section class="container mt-5">
+  <h4>Bank Account</h4>
+  <p class="mb-1">
+    Order Reference <span><i class="bi bi-star-fill text-danger"></i></span>
+  </p>
+  <p class="mb-3 fw-bold">{{customerOrder.customer_ref}}</p>
+  <p class="mb-1">Bank Name</p>
+  <p class="mb-3 fw-bold">TymeBank</p>
+  <p class="mb-1">Branch Code</p>
+  <p class="mb-3 fw-bold">678910</p>
+  <p class="mb-1">Account Number</p>
+  <p class="mb-3 fw-bold">678910</p>
+</section>
+
+<!-- Products section  -->
+<section class="container mt-5">
+  <div class="row py-3" style="background-color: black">
+    <div class="col-4 text-white">Item</div>
+    <div class="col text-white">Price</div>
+    <div class="col-2 text-white">Qty</div>
+    <div class="col text-white">Amount</div>
+  </div>
+
+  {% for items in customerOrder.UserItems.all %}
+  <div class="row py-3 bg-light">
+    <div class="col-4 text-black">{{items.ProductKey.Name}}</div>
+    <div class="col text-black">R{{items.sale_price}}</div>
+    <div class="col-2 text-black">{{items.Quantity}}</div>
+    <div class="col text-black">R{{items.Sub_Total}}</div>
+  </div>
+  {% endfor %}
+
+  <div class="row py-3 border">
+    <div class="col-4 text-black">Sub Total</div>
+    <div class="col text-black"></div>
+    <div class="col-2 text-black"></div>
+    <div class="col text-black">R{{customerOrder.GrandTotal}}</div>
+  </div>
+  {% if paxiData %}
+  <div class="row py-3 border">
+    <div class="col-4 text-black">Delivery Fee</div>
+    <div class="col text-black">R{{paxiData.price}}</div>
+    <div class="col-2 text-black"></div>
+    <div class="col text-black">R{{paxiData.price}}</div>
+  </div>
+  {% endif %}
+  <div class="row py-3 border">
+    <div class="col-4 text-black fw-bold">Grand Total Due</div>
+    <div class="col text-black"></div>
+    <div class="col-2 text-black"></div>
+    <div class="col text-black fw-bold" style="letter-spacing: 1px">
+      R{{customerOrder.AmountDue}}
+    </div>
+  </div>
+</section>
+
+<!-- Thank you note  -->
+<section class="container mt-5">
+  <p class="fw-bold text-black">
+    Thank you
+    <span class="fw-bold text-secondary">{{customerOrder.Name}}</span>, for
+    shopping with Emmah April.
+  </p>
+</section>
+
+<!-- Notes  -->
+<section class="container mt-5">
+  <p class="fw-bold">Note</p>
+  <p>
+    Placing an item in your shopping cart does not reserve that item or price.We
+    only reserve stock for your order once payment is recieved.
+  </p>
+</section>
+
+<!-- Continue shopping div  -->
+<div class="container bg-white pt-2 fixed-bottom" hx-boost="true">
+  <a href="{% url 'index' %}">
+    <button
+      name="checkout"
+      class="btn btn-secondary py-3 mb-4 rounded-0"
+      style="width: 100%; letter-spacing: 1px"
+    >
+      CONTINUE SHOPPING
+    </button>
+  </a>
+</div>
+
+<!-- bottom space div  -->
+<div style="height: 200px; width: 100%"></div>
+
+<script>
+  function showPaxi(event) {
+    event.preventDefault();
+    var x = document.getElementById("read_more");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+
+{% endblock %}

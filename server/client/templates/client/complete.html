@@ -1,0 +1,72 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mt-5">ORDER COMPLETE.</h3>
+  <div
+    class="mb-5"
+    style="height: 5px; width: 20%; background-color: black"
+  ></div>
+</section>
+
+<section class="container mt-5">
+  <h5 class="headings-bold fonts">Thank you Jamal for your support.</h5>
+  <h5 class="mb-3 mt-4 headings-bold">Payment</h5>
+  <p class="mb-1 text-secondary">Sub-Total</p>
+  <p class="fw-bold" style="letter-spacing: 1px">
+    R <span>{{customerReference.GrandTotal}}</span>
+  </p>
+
+  <!-- Delivery Fee  -->
+  {% if customerReference.Option_Picked == "Paxi" %}
+  <p class="mb-1 text-secondary">Delivery Fee</p>
+  <p class="fw-bold" style="letter-spacing: 1px">
+    R <span>{{customerReference.deliveryFee}}</span>
+  </p>
+  {% endif %}
+
+  <div class="px-1 py-3 border bg-light my-3">
+    <p class="mb-1 text-secondary">Grand Total Due</p>
+    <p class="fw-bold" style="letter-spacing: 1px">
+      R <span>{{customerReference.AmountDue}}</span>
+    </p>
+  </div>
+  <p class="mb-1 text-secondary">Bank Name</p>
+  <p class="fw-bold" style="letter-spacing: 1px">TymeBank</p>
+  <p class="mb-1 text-secondary">Branch Code</p>
+  <p class="fw-bold" style="letter-spacing: 1px">678910</p>
+  <p class="mb-1 text-secondary">Account Number</p>
+  <p class="fw-bold" style="letter-spacing: 1px">3476476428</p>
+  <p class="mb-1 text-secondary">Referance</p>
+  <p class="fw-bold" style="letter-spacing: 1px">
+    {{customerReference.customer_ref}}
+  </p>
+</section>
+
+<section class="mt-5 container">
+  <center>
+    <p class="mb-3 bg-black text-white py-3">Please Note</p>
+  </center>
+  <p>
+    Placing an item in your shopping cart does not reserve that item or price.We
+    only reserve stock for your order once payment is recieved.
+  </p>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- Footer section  -->
+<section>{% include 'partials/footer.html'%}</section>
+
+{% endblock %}

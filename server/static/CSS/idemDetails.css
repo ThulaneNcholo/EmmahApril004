@@ -1,0 +1,19 @@
+.item-img {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.favourite-icon {
+  font-size: 30px;
+}
+
+.price-style {
+  font-size: 30px;
+}
+
+.more-pictures {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+}

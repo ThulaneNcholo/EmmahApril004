@@ -1,0 +1,109 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">CUSTOMER INFOMATION</h3>
+
+  <form action="">
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="FIRST NAME"
+      />
+      <label for="floatingInput">FIRST NAME</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="LAST NAME"
+      />
+      <label for="floatingInput">LAST NAME</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="number"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="PHONE"
+      />
+      <label for="floatingInput">PHONE</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">EMAIL ADDRESS</label>
+    </div>
+    <h3 class="heading_style mt-5 mb-4">ADDRESS</h3>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="STREET ADDRESS"
+      />
+      <label for="floatingInput">STREET ADDRESS</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="CITY"
+      />
+      <label for="floatingInput">CITY</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="PROVINCE"
+      />
+      <label for="floatingInput">PROVINCE</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0 py-3"
+        id="floatingInput"
+        placeholder="POSTAL CODE"
+      />
+      <label for="floatingInput">POSTAL CODE</label>
+    </div>
+  </form>
+</section>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+
+<!-- <section class="container">
+    <p>Please note we only do cash deposits</p>
+</section> -->
+
+<div class="container fixed-bottom bg-white" hx-boost="true">
+  <div class="row mb-3 border mx-0 py-3" style="border-color: black !important">
+    <div class="col">SUBTOTAL:</div>
+    <div class="col">R1400</div>
+  </div>
+  <a href="{% url 'delivery' %}">
+    <button class="btn btn-secondary py-3 mb-4 rounded-0" style="width: 100%">
+      DELIVERY METHODS
+    </button>
+  </a>
+</div>
+
+<!-- section diver  -->
+<div class="content_divider"></div>
+{% endblock %}

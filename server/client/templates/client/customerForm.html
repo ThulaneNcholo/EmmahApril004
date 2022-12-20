@@ -1,0 +1,74 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+
+<style>
+  .card-shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .complete-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-width {
+    max-width: 600px;
+  }
+</style>
+
+<section class="complete-form">
+  <div class="container form-width">
+    <h3 class="heading_style mb-4">Almost Done</h3>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control rounded-0"
+          id="floatingInput"
+          placeholder="FIRST NAME"
+          name="FirstName"
+          required
+        />
+        <label for="floatingInput">FIRST NAME</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control rounded-0"
+          id="floatingInput"
+          placeholder="LAST NAME"
+          name="LastName"
+          required
+        />
+        <label for="floatingInput">LAST NAME</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="number"
+          class="form-control rounded-0"
+          id="floatingInput"
+          placeholder="PHONE"
+          name="Phone"
+          required
+        />
+        <label for="floatingInput">PHONE</label>
+      </div>
+
+      <!-- Redict Path  -->
+      <input type="text" value="" id="redictedPath" name="redictPath" hidden="True"/>
+
+      <button
+        type="submit"
+        name="complete_Registration"
+        class="btn text-white py-3 rounded-0 card-shadow my-4"
+        style="background-color: black; width: 100%"
+      >
+        Complete Registration
+      </button>
+    </form>
+  </div>
+</section>
+{% endblock %}

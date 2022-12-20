@@ -1,0 +1,107 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+<main class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-3 mt-5">CUSTOMER INFORMATION</h3>
+  <!-- <p>To complete your order form, kindly give us with your data.</p> -->
+  <p>
+    Hey, To complete your order,please kindly confirm or provide us with your
+    information.
+  </p>
+  <!-- <p>Please provide us with your details and we'll send our you bank details</p> -->
+  <p>
+    Adding an item to your shopping basket does not reserve it or its price. We
+    only reserve stock for your order when we receive payment.
+  </p>
+  <form action="" method="POST" autocomplete="off" class="mt-5">
+    {% csrf_token %}
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0"
+        id="floatingInput"
+        placeholder="FIRST NAME"
+        name="FirstName"
+        value="{{customerInstance.first_name}}"
+      />
+      <label class="pb-5 mb-3" for="floatingInput">FIRST NAME</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-0"
+        id="floatingInput"
+        placeholder="LAST NAME"
+        name="LastName"
+        value="{{customerInstance.last_name}}"
+      />
+      <label for="floatingInput">LAST NAME</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="number"
+        class="form-control rounded-0"
+        id="floatingInput"
+        placeholder="PHONE"
+        name="Phone"
+        value="{{customerInstance.phone}}"
+      />
+      <label for="floatingInput">PHONE</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="number"
+        class="form-control rounded-0"
+        id="floatingInput"
+        placeholder="PHONE"
+        name="altPhone"
+      />
+      <label for="floatingInput">ALTERNATE PHONE</label>
+      <p class="text-secondary mt-3">( optional )</p>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control rounded-0"
+        id="floatingInput"
+        placeholder="name@example.com"
+        name="Email"
+        value="{{customerInstance.email}}"
+      />
+      <label for="floatingInput">EMAIL ADDRESS</label>
+    </div>
+    <div class="container fixed-bottom bg-white" hx-boost="true">
+      <div
+        class="row mb-3 border mx-0 py-3"
+        style="border-color: black !important"
+      >
+        <div class="col">TOTAL:</div>
+        <div class="col fw-bold" style="letter-spacing: 1px">
+          R{{CustomerCart.AmountDue}}
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-secondary py-3 mb-4 rounded-0"
+        style="width: 100%"
+        name="CompleteApplication"
+      >
+        COMPLETE ORDER
+      </button>
+    </div>
+  </form>
+</main>
+
+<!-- section diver  -->
+<div style="height: 200px; width: 100%"></div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<style>
+  .profile-image {
+    height: 300px;
+    width: 160px;
+    object-fit: cover;
+  }
+</style>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">ABOUT EMMAH APRIL</h3>
+</section>
+
+<section class="container mt-5 mb-5">
+  <center>
+    <img
+      class="img-fluid April_logo"
+      src="{% static 'images/AprilLogoTrans.svg'%}"
+      alt=""
+    />
+  </center>
+
+  <p>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis
+    nostrum ipsum eos quia facilis sed, expedita obcaecati distinctio fugiat
+    cumque accusantium veniam iste possimus eligendi repellendus ad nam odio
+    impedit voluptatum quidem. Dolore autem, commodi ducimus placeat porro
+    assumenda tenetur!
+  </p>
+</section>
+
+<section class="container mt-5">
+  <h3 class="heading_style mb-5 mt-5">LOCATION</h3>
+  <p>102 TOTIUS ROAD</p>
+  <p>CRSYTAL PARK</p>
+  <p>BENONI</p>
+</section>
+
+<section class="container mt-5">
+  <h3 class="heading_style mb-5 mt-5">CONTACT</h3>
+  <div class="mb-3">
+    <a href="tel:0834787809" style="text-decoration: none; color: black">
+      083 478 7809
+    </a>
+  </div>
+  <div>
+    <a
+      href="mailto:emmahaprilza@gmail.com"
+      style="text-decoration: none; color: black"
+    >
+      emmahaprilza@gmail.com
+    </a>
+  </div>
+</section>
+
+<section class="container mt-5 mb-5">
+  <h3 class="heading_style mb-5 mt-5">SOCIAL MEDIA</h3>
+  <p>
+    <span style="padding-right: 5px"><i class="bi bi-instagram"></i></span>
+    Emmah April
+  </p>
+  <p>
+    <span style="padding-right: 5px"><i class="bi bi-facebook"></i></span>
+    Emmah April
+  </p>
+</section>
+
+<div style="height: 40px; width: 100%"></div>
+
+<section class="container mt-5">
+  <div class="row mb-5">
+    <div class="col">
+      <img class="profile-image" src="{% static 'images/emmah.jpg'%}" alt="" />
+    </div>
+    <div class="col">
+      <h3 class="heading_style">EMMAH NCHOLO</h3>
+      <h4>Founder</h4>
+    </div>
+  </div>
+  <div class="row mb-5">
+    <div class="col">
+      <img class="profile-image" src="{% static 'images/diro.jpg'%}" alt="" />
+    </div>
+    <div class="col">
+      <h3 class="heading_style">DIRONTSHO NCHOLO</h3>
+      <h4>Marketing</h4>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col">
+      <img class="profile-image" src="{% static 'images/rato.jpg'%}" alt="" />
+    </div>
+    <div class="col">
+      <h3 class="heading_style">LERATO CHAPPIE</h3>
+      <h4>Marketing</h4>
+    </div>
+  </div>
+</section>
+
+<!-- section diver  -->
+<div style="height: 200px; width: 100%"></div>
+
+{% endblock %}

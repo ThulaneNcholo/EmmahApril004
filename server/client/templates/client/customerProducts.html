@@ -1,0 +1,63 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<style>
+  .headings {
+    font-family: "Tenor Sans", sans-serif;
+  }
+
+  .UpperCase {
+    text-transform: uppercase;
+  }
+</style>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+
+  <h3 class="headings mt-5 UpperCase">{{request.user}}'s COLLECTION</h3>
+
+  {% for collection in myCollection %}
+  <div class="row mt-5 mb-4">
+    <div class="col">#{{collection.customer_ref}}</div>
+    <div class="col">{{collection.order_date}}</div>
+    <div class="col-2 fw-bold" hx-boost="true">
+      <center>
+        <a
+          href="{% url 'order-complete' collection.id %}"
+          style="text-decoration: none"
+        >
+          <div class="text-black">VIEW</div>
+        </a>
+      </center>
+    </div>
+  </div>
+  {% empty %}
+  <div class="mt-5" hx-boost="true">
+    <center>
+      <img
+        class="img-fluid April_logo"
+        src="{% static 'images/AprilLogoTrans.svg'%}"
+        alt=""
+      />
+    </center>
+
+    <a href="{% url 'all-collections' %}">
+      <button
+        class="btn text-white rounded-0 py-3 card-shadow"
+        style="background-color: black; width: 100%"
+      >
+        START SHOPPING TODAY
+      </button>
+    </a>
+  </div>
+
+  {% endfor %}
+</section>
+
+<div style="height: 150px; width: 100%"></div>
+{% endblock %}
+
+

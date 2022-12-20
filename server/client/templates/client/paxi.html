@@ -1,0 +1,233 @@
+{% extends 'client/base.html' %} {% load static %} {% block content %}
+<!-- divider  -->
+{% include 'partials/navbar.html'%}
+
+<style>
+  a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
+
+<section class="container mt-4">
+  {% for message in messages %}
+  <div class="alert alert-primary" role="alert">{{message}}</div>
+  {% endfor %}
+</section>
+
+<section class="container mt-5">
+  <a role="button" onclick="history.back()" style="color: black">
+    <i class="bi bi-arrow-left" style="font-size: 20px"></i>
+  </a>
+  <h3 class="heading_style mb-5 mt-5">Paxi Delivery</h3>
+</section>
+
+<h3 class="heading_style mb-5 mt-5 container" id="hide-heading">
+  Search for your nearest paxi post / Pep Store and
+  <span style="color: #e46d2a">choose point</span>
+</h3>
+
+<section class="my-5 container">
+  <p class="fw-bold">How to Collect a PAXI package?</p>
+  <button
+    type="button"
+    class="btn btn-outline-dark rounded-0 card-shadow mb-5"
+    onclick="showPaxi(event)"
+  >
+    Read More
+  </button>
+
+  <div id="read_more" style="display: none">
+    <p class="fw-bold">1. COLLECTION SMS</p>
+    <p>PAXI will update you on the journey of your package via SMS</p>
+    <p class="fw-bold">2. BRING ID & PIN</p>
+    <p>
+      Bring your proof of identification and OTP pin when collecting your parcel
+    </p>
+    <p class="fw-bold">3. SCAN</p>
+    <p>Your PAXI bag will get scanned out</p>
+    <p class="fw-bold mb-4">4. AND YOU'RE READY TO GO!</p>
+    <hr />
+
+    <a href="https://www.paxi.co.za/track" target="_blank">
+      <p>
+        Track Package
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+
+    <a href="https://www.paxi.co.za/collect#collectHow" target="_blank">
+      <p>
+        Paxi Website
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+    <a
+      href="https://www.pepstores.com/page/pep-money/paxi/how-to-collect-a-paxi-parcel"
+      target="_blank"
+    >
+      <p>
+        Pep store's Website
+        <span><i class="bi bi-arrow-right-circle-fill px-2"></i></span>
+      </p>
+    </a>
+  </div>
+</section>
+
+<section class="container mt-5" id="selected_location" style="display: none">
+  <h3 class="heading_style mb-5 mt-5">Paxi Point Delivery Confirmation</h3>
+  <p>Please select Delivery Option?</p>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="row mb-5">
+      {% for package in paxiOptions %}
+      <div class="col-6">
+        <input
+          type="radio"
+          class="btn-check"
+          name="packageSelectedId"
+          id="{{package.id}}"
+          autocomplete="off"
+          value="{{package.id}}"
+          required
+        />
+        <label
+          class="btn text-black border border-2 p-3"
+          for="{{package.id}}"
+          style="background-color: lightgray"
+        >
+          {{package.days}} <br />
+          business day service <br />
+          <span class="fw-bold"> R {{package.price}}</span></label
+        >
+      </div>
+      {% endfor %}
+    </div>
+    <p id="line1"></p>
+    <p id="line2"></p>
+    <p id="line3"></p>
+    <p id="line4"></p>
+    <p id="line5"></p>
+    <p id="line6"></p>
+    <p id="line7"></p>
+
+    <input type="text" name="address1" id="address1" hidden="True" />
+    <input type="text" name="address2" id="address2" hidden="True" />
+    <input type="text" name="address3" id="address3" hidden="True" />
+    <input type="text" name="address4" id="address4" hidden="True" />
+    <input type="text" name="address5" id="address5" hidden="True" />
+    <input type="text" name="address6" id="address6" hidden="True" />
+    <input type="text" name="address7" id="address7" hidden="True" />
+
+    <button
+      class="btn text-white py-3 my-3 rounded-0"
+      style="background-color: black; width: 100%"
+      type="submit"
+      name="ConfirmLocation"
+    >
+      Confirm Location
+    </button>
+  </form>
+  <button
+    type="button"
+    class="btn btn-light py-3 my-2 round-0 border-2 border"
+    style="width: 100%"
+    onclick="showMap(event)"
+  >
+    Choose another location
+  </button>
+</section>
+
+<section class="mt-5" id="mapComponent">
+  <!-- NOTE: width and height can be updated to fit your UI -->
+  <!-- NOTE: width and height can be updated to fit your UI -->
+  <iframe
+    width="100%"
+    height="800"
+    src="https://map.paxi.co.za?size=l,m,s&status=1,3,4&maxordervalue=1000&output=nc,add&select=true"
+    frameborder="0"
+    allow="geolocation"
+  ></iframe>
+</section>
+
+<div style="height: 200px; width: 100%"></div>
+
+<script type="text/javascript">
+  function receiveMessage(message) {
+    if (
+      message.origin == "https://map.paxi.co.za" &&
+      message.data &&
+      message.data.trg === "paxi"
+    ) {
+      var point = message.data.point;
+      /* Modify the code below for your application */
+      //   console.log(point);
+
+      if (point !== {}) {
+        mapContainer = document.getElementById("mapComponent");
+        mapContainer.style.display = "none";
+
+        // add to html start  selected_location
+        locationContainer = document.getElementById("selected_location");
+        locationContainer.style.display = "block";
+
+        // show heading
+        headings = document.getElementById("hide-heading");
+        headings.style.display = "none";
+
+        document.getElementById("line1").innerHTML = point.addressLine1;
+        document.getElementById("line2").innerHTML = point.addressLine2;
+        document.getElementById("line3").innerHTML = point.addressLine3;
+        document.getElementById("line4").innerHTML = point.addressLine4;
+        document.getElementById("line5").innerHTML = point.addressLine5;
+        document.getElementById("line6").innerHTML = point.addressLine6;
+        document.getElementById("line7").innerHTML = point.postalCode;
+
+        //   Form Inputs
+        document.getElementById("address1").value = point.addressLine1;
+        document.getElementById("address2").value = point.addressLine2;
+        document.getElementById("address3").value = point.addressLine3;
+        document.getElementById("address4").value = point.addressLine4;
+        document.getElementById("address5").value = point.addressLine5;
+        document.getElementById("address6").value = point.addressLine6;
+        document.getElementById("address7").value = point.postalCode;
+      }
+
+      /* Add additional logic below (eg: closing modal) */
+    }
+  }
+  if (window.addEventListener) {
+    window.addEventListener("message", receiveMessage, false);
+  } else {
+    /* support for older browsers (IE 8) */
+    window.attachEvent("onmessage", receiveMessage);
+  }
+
+  // Show map function
+  function showMap(event) {
+    event.preventDefault();
+    // hide selected location
+    locationContainer = document.getElementById("selected_location");
+    locationContainer.style.display = "none";
+
+    // show Map
+    mapContainer = document.getElementById("mapComponent");
+    mapContainer.style.display = "block";
+
+    // show heading
+    headings = document.getElementById("hide-heading");
+    headings.style.display = "block";
+  }
+
+  function showPaxi(event) {
+    event.preventDefault();
+    var x = document.getElementById("read_more");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+
+{% endblock %}
